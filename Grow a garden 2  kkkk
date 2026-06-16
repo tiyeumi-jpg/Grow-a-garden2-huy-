@@ -1,0 +1,133 @@
+-- PHẦN GET KEY
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Frame = Instance.new("Frame", ScreenGui) Frame.Size = UDim2.new(0, 300, 0, 300) Frame.Position = UDim2.new(0.5, -150, 0.5, -150) Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) Instance.new("UIStroke", Frame).Color = Color3.fromRGB(170, 0, 255) Instance.new("UICorner", Frame)
+local Title = Instance.new("TextLabel", Frame) Title.Size = UDim2.new(1, 0, 0, 30) Title.Text = "grow a garden 2 [huy.]" Title.TextColor3 = Color3.fromRGB(255, 255, 255) Title.BackgroundTransparency = 1
+local Input = Instance.new("TextBox", Frame) Input.Size = UDim2.new(0.65, 0, 0, 40) Input.Position = UDim2.new(0.02, 0, 0.15, 0) Input.BackgroundColor3 = Color3.fromRGB(20, 20, 20) Input.TextColor3 = Color3.new(1, 1, 1) Input.PlaceholderText = "Nhập Key"
+local Paste = Instance.new("TextButton", Frame) Paste.Size = UDim2.new(0.3, 0, 0, 40) Paste.Position = UDim2.new(0.68, 0, 0.15, 0) Paste.BackgroundColor3 = Color3.fromRGB(200, 0, 0) Paste.TextColor3 = Color3.new(1, 1, 1) Paste.Text = "Dán"
+local GetKey = Instance.new("TextButton", Frame) GetKey.Size = UDim2.new(0.96, 0, 0, 40) GetKey.Position = UDim2.new(0.02, 0, 0.3, 0) GetKey.BackgroundColor3 = Color3.fromRGB(200, 0, 0) GetKey.TextColor3 = Color3.new(1, 1, 1) GetKey.Text = "Get Key"
+local Status = Instance.new("TextLabel", Frame) Status.Size = UDim2.new(0.96, 0, 0, 40) Status.Position = UDim2.new(0.02, 0, 0.45, 0) Status.Text = "Nhập key rồi nhấn Enter để kiểm tra" Status.TextColor3 = Color3.fromRGB(255, 255, 255) Status.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+local Submit = Instance.new("TextButton", Frame) Submit.Size = UDim2.new(0.96, 0, 0, 40) Submit.Position = UDim2.new(0.02, 0, 0.6, 0) Submit.BackgroundColor3 = Color3.fromRGB(0, 200, 0) Submit.TextColor3 = Color3.new(1, 1, 1) Submit.Text = "Xác nhận Key"
+local Discord = Instance.new("TextButton", Frame) Discord.Size = UDim2.new(0.96, 0, 0, 40) Discord.Position = UDim2.new(0.02, 0, 0.75, 0) Discord.BackgroundColor3 = Color3.fromRGB(200, 0, 0) Discord.TextColor3 = Color3.new(1, 1, 1) Discord.Text = "Join Discord"
+
+Paste.MouseButton1Click:Connect(function() Input.Text = getclipboard() or "" end)
+GetKey.MouseButton1Click:Connect(function() if setclipboard then setclipboard("https://link4m.org/lpQaPhO") end; Status.Text = "Link đã copy!" end)
+Discord.MouseButton1Click:Connect(function() if setclipboard then setclipboard("LINK_DISCORD_CUA_BAN") end end)
+
+-- PHẦN MENU CHÍNH
+local function StartMainScript()
+    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+    local Window = Rayfield:CreateWindow({Name = "ib.Tiktok.huyz367 - Main Menu", LoadingTitle = "Loading...", LoadingSubtitle = "by Bé"})
+    local Players = game:GetService("Players")
+    local RunService = game:GetService("RunService")
+    local LP = Players.LocalPlayer
+    local Camera = workspace.CurrentCamera
+
+    -- Tab ESP & Aimbot
+    local Tab = Window:CreateTab("ESP & Aimbot", nil)
+    _G.ESP = false _G.Skel = false _G.Aimbot = false
+    _G.AOVSize = 300
+    
+    Tab:CreateToggle({Name = "Box & Line ESP", Callback = function(v) _G.ESP = v end})
+    Tab:CreateToggle({Name = "Skeleton ESP", Callback = function(v) _G.Skel = v end})
+    Tab:CreateToggle({Name = "Aimbot (Lock Head)", Callback = function(v) _G.Aimbot = v end})
+    
+    Tab:CreateSlider({
+        Name = "Kích thước vòng AOV",
+        Range = {50, 800},
+        Increment = 10,
+        Suffix = "px",
+        CurrentValue = 300,
+        Callback = function(v) _G.AOVSize = v end
+    })
+
+    -- Tab Trồng Cây 🌲
+    local FarmTab = Window:CreateTab("Script Trồng Cây 🌲", nil)
+    FarmTab:CreateButton({
+        Name = "Chạy Script Trồng Cây",
+        Callback = function()
+            repeat task.wait() until game:IsLoaded() and game:GetService("Players") and game.Players.LocalPlayer and game.Players.LocalPlayer:FindFirstChild("PlayerGui")
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/main.lua"))()
+            Rayfield:Notify({Title = "Thông báo", Content = "Đã kích hoạt script trồng cây!", Duration = 3})
+        end
+    })
+
+    -- Nút NET
+    local gui = Instance.new("ScreenGui", game.CoreGui)
+    local btn = Instance.new("TextButton", gui)
+    btn.Size = UDim2.new(0, 80, 0, 80) btn.Position = UDim2.new(0.5, -40, 0.5, -40)
+    btn.Text = "NET" btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40) btn.TextColor3 = Color3.new(1, 1, 1)
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(1, 0) btn.Draggable = true
+    
+    local isOn = false
+    btn.MouseButton1Click:Connect(function()
+        isOn = not isOn
+        btn.Text = isOn and "ON" or "NET"
+        for _, other in pairs(Players:GetPlayers()) do
+            if other ~= LP and other.Character and other.Character:FindFirstChild("HumanoidRootPart") then
+                other.Character.HumanoidRootPart.Anchored = isOn
+            end
+        end
+    end)
+
+    -- Vòng tròn AOV
+    local AOV = Drawing.new("Circle")
+    AOV.Color = Color3.fromRGB(255, 255, 255)
+    AOV.Thickness = 2
+    AOV.Filled = false
+    AOV.Visible = true
+
+    -- Logic ESP Vẽ & Aimbot
+    local drawings = {}
+    RunService.RenderStepped:Connect(function()
+        -- Cập nhật AOV
+        AOV.Radius = _G.AOVSize
+        AOV.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
+        AOV.Visible = _G.Aimbot
+
+        for _, p in pairs(Players:GetPlayers()) do
+            if p ~= LP and p.Character and p.Character:FindFirstChild("Head") then
+                if not drawings[p.Name] then drawings[p.Name] = {Line = Drawing.new("Line"), Box = Drawing.new("Square")} end
+                local pos, on = Camera:WorldToViewportPoint(p.Character.Head.Position)
+                if _G.ESP then
+                    drawings[p.Name].Line.From = Vector2.new(Camera.ViewportSize.X/2, 0)
+                    drawings[p.Name].Line.To = Vector2.new(pos.X, pos.Y)
+                    drawings[p.Name].Line.Visible = true
+                else
+                    drawings[p.Name].Line.Visible = false
+                end
+            end
+        end
+        
+        -- Logic Aimbot với giới hạn AOV
+        if _G.Aimbot then
+            local closest = nil
+            local minDistance = _G.AOVSize
+            local screenCenter = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
+            
+            for _, p in pairs(Players:GetPlayers()) do
+                if p ~= LP and p.Character and p.Character:FindFirstChild("Head") and p.Character:FindFirstChild("Humanoid") and p.Character.Humanoid.Health > 0 then
+                    local headPos, on = Camera:WorldToViewportPoint(p.Character.Head.Position)
+                    local distanceToCenter = (Vector2.new(headPos.X, headPos.Y) - screenCenter).Magnitude
+                    if distanceToCenter < minDistance then
+                        minDistance = distanceToCenter
+                        closest = p.Character.Head
+                    end
+                end
+            end
+            if closest then 
+                Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, closest.Position) 
+            end
+        end
+    end)
+end
+
+Submit.MouseButton1Click:Connect(function() 
+    if Input.Text == "modgameroblox744" then 
+        Status.Text = "Key Đúng! Đang chạy..." 
+        Frame.Visible = false 
+        StartMainScript()
+    else 
+        Status.Text = "Key Sai!" 
+    end 
+end)
+                                  
