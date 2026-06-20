@@ -1,41 +1,28 @@
--- PHẦN GET KEY
-local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
-local Frame = Instance.new("Frame", ScreenGui) Frame.Size = UDim2.new(0, 300, 0, 300) Frame.Position = UDim2.new(0.5, -150, 0.5, -150) Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) Instance.new("UIStroke", Frame).Color = Color3.fromRGB(170, 0, 255) Instance.new("UICorner", Frame)
-local Title = Instance.new("TextLabel", Frame) Title.Size = UDim2.new(1, 0, 0, 30) Title.Text = "grow a garden 2 [huy.]" Title.TextColor3 = Color3.fromRGB(255, 255, 255) Title.BackgroundTransparency = 1
-local Input = Instance.new("TextBox", Frame) Input.Size = UDim2.new(0.65, 0, 0, 40) Input.Position = UDim2.new(0.02, 0, 0.15, 0) Input.BackgroundColor3 = Color3.fromRGB(20, 20, 20) Input.TextColor3 = Color3.new(1, 1, 1) Input.PlaceholderText = "Nhập Key"
-local Paste = Instance.new("TextButton", Frame) Paste.Size = UDim2.new(0.3, 0, 0, 40) Paste.Position = UDim2.new(0.68, 0, 0.15, 0) Paste.BackgroundColor3 = Color3.fromRGB(200, 0, 0) Paste.TextColor3 = Color3.new(1, 1, 1) Paste.Text = "Dán"
-local GetKey = Instance.new("TextButton", Frame) GetKey.Size = UDim2.new(0.96, 0, 0, 40) GetKey.Position = UDim2.new(0.02, 0, 0.3, 0) GetKey.BackgroundColor3 = Color3.fromRGB(200, 0, 0) GetKey.TextColor3 = Color3.new(1, 1, 1) GetKey.Text = "Get Key"
-local Status = Instance.new("TextLabel", Frame) Status.Size = UDim2.new(0.96, 0, 0, 40) Status.Position = UDim2.new(0.02, 0, 0.45, 0) Status.Text = "Nhập key rồi nhấn Enter để kiểm tra" Status.TextColor3 = Color3.fromRGB(255, 255, 255) Status.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-local Submit = Instance.new("TextButton", Frame) Submit.Size = UDim2.new(0.96, 0, 0, 40) Submit.Position = UDim2.new(0.02, 0, 0.6, 0) Submit.BackgroundColor3 = Color3.fromRGB(0, 200, 0) Submit.TextColor3 = Color3.new(1, 1, 1) Submit.Text = "Xác nhận Key"
-local Discord = Instance.new("TextButton", Frame) Discord.Size = UDim2.new(0.96, 0, 0, 40) Discord.Position = UDim2.new(0.02, 0, 0.75, 0) Discord.BackgroundColor3 = Color3.fromRGB(200, 0, 0) Discord.TextColor3 = Color3.new(1, 1, 1) Discord.Text = "Join Discord"
+local Players = game:GetService("Players")
+local LP = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local Camera = workspace.CurrentCamera
 
-Paste.MouseButton1Click:Connect(function() Input.Text = getclipboard() or "" end)
-GetKey.MouseButton1Click:Connect(function() if setclipboard then setclipboard("https://link4m.org/lpQaPhO") end; Status.Text = "Link đã copy!" end)
-Discord.MouseButton1Click:Connect(function() if setclipboard then setclipboard("LINK_DISCORD_CUA_BAN") end end)
-
--- PHẦN MENU CHÍNH
+-- PHẦN MENU CHÍNH (ĐỂ GỌI SAU KHI XÁC THỰC KEY)
 local function StartMainScript()
     local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
     local Window = Rayfield:CreateWindow({Name = "ib.Tiktok.huyz367 - Main Menu", LoadingTitle = "Loading...", LoadingSubtitle = "by Bé"})
-    local Players = game:GetService("Players")
-    local RunService = game:GetService("RunService")
-    local LP = Players.LocalPlayer
-    local Camera = workspace.CurrentCamera
 
     local Tab = Window:CreateTab("ESP & Aimbot", nil)
-    _G.ESP = false _G.Skel = false _G.Aimbot = false
-    _G.AOVSize = 300
+    _G.ESP = false _G.Skel = false _G.Aimbot = false _G.AOVSize = 300
     
     Tab:CreateToggle({Name = "Box & Line ESP", Callback = function(v) _G.ESP = v end})
     Tab:CreateToggle({Name = "Skeleton ESP", Callback = function(v) _G.Skel = v end})
     Tab:CreateToggle({Name = "Aimbot (Lock Head)", Callback = function(v) _G.Aimbot = v end})
-    
     Tab:CreateSlider({Name = "Kích thước vòng AOV", Range = {50, 800}, Increment = 10, Suffix = "px", CurrentValue = 300, Callback = function(v) _G.AOVSize = v end})
 
     local FarmTab = Window:CreateTab("Script Trồng Cây 🌲", nil)
-    FarmTab:CreateButton({Name = "Script Trồng Cây (Cũ)", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/main.lua"))() end})
-    FarmTab:CreateButton({Name = "Script Trồng Cây (Premium)", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Realkifhub/Realkif/refs/heads/main/Premium%20/Refs"))() end})
+    FarmTab:CreateButton({Name = "Chạy Script Trồng Cây", Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/main.lua"))()
+        Rayfield:Notify({Title = "Thông báo", Content = "Đã kích hoạt script trồng cây!", Duration = 3})
+    end})
 
+    -- Nút NET
     local gui = Instance.new("ScreenGui", game.CoreGui)
     local btn = Instance.new("TextButton", gui)
     btn.Size = UDim2.new(0, 80, 0, 80) btn.Position = UDim2.new(0.5, -40, 0.5, -40)
@@ -53,41 +40,26 @@ local function StartMainScript()
         end
     end)
 
+    -- Logic ESP & Aimbot
     local AOV = Drawing.new("Circle")
-    AOV.Color = Color3.fromRGB(255, 255, 255)
-    AOV.Thickness = 2
-    AOV.Filled = false
-    AOV.Visible = true
-
+    AOV.Color = Color3.fromRGB(255, 255, 255); AOV.Thickness = 2; AOV.Filled = false; AOV.Visible = true
     local drawings = {}
     RunService.RenderStepped:Connect(function()
-        AOV.Radius = _G.AOVSize
-        AOV.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
-        AOV.Visible = _G.Aimbot
-
+        AOV.Radius = _G.AOVSize; AOV.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2); AOV.Visible = _G.Aimbot
         for _, p in pairs(Players:GetPlayers()) do
             if p ~= LP and p.Character and p.Character:FindFirstChild("Head") then
                 if not drawings[p.Name] then drawings[p.Name] = {Line = Drawing.new("Line")} end
                 local pos, on = Camera:WorldToViewportPoint(p.Character.Head.Position)
-                if _G.ESP then
-                    drawings[p.Name].Line.From = Vector2.new(Camera.ViewportSize.X/2, 0)
-                    drawings[p.Name].Line.To = Vector2.new(pos.X, pos.Y)
-                    drawings[p.Name].Line.Visible = true
-                else
-                    drawings[p.Name].Line.Visible = false
-                end
+                drawings[p.Name].Line.From = Vector2.new(Camera.ViewportSize.X/2, 0); drawings[p.Name].Line.To = Vector2.new(pos.X, pos.Y); drawings[p.Name].Line.Visible = _G.ESP and on
             end
         end
-        
         if _G.Aimbot then
-            local closest = nil
-            local minDistance = _G.AOVSize
-            local screenCenter = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
+            local closest = nil; local minD = _G.AOVSize; local center = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
             for _, p in pairs(Players:GetPlayers()) do
                 if p ~= LP and p.Character and p.Character:FindFirstChild("Head") and p.Character:FindFirstChild("Humanoid") and p.Character.Humanoid.Health > 0 then
                     local headPos, on = Camera:WorldToViewportPoint(p.Character.Head.Position)
-                    local dist = (Vector2.new(headPos.X, headPos.Y) - screenCenter).Magnitude
-                    if dist < minDistance then minDistance = dist closest = p.Character.Head end
+                    local dist = (Vector2.new(headPos.X, headPos.Y) - center).Magnitude
+                    if dist < minD then minD = dist; closest = p.Character.Head end
                 end
             end
             if closest then Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, closest.Position) end
@@ -95,12 +67,129 @@ local function StartMainScript()
     end)
 end
 
-Submit.MouseButton1Click:Connect(function() 
-    if Input.Text == "modkey58h" then 
-        Status.Text = "Key Đúng! Đang chạy..." 
-        Frame.Visible = false 
-        StartMainScript()
-    else 
-        Status.Text = "Key Sai!" 
-    end 
+-- PHẦN MENU GET KEY (MÀU ĐẸP HƠN)
+local screen = Instance.new("ScreenGui", LP.PlayerGui)
+screen.ResetOnSpawn = false
+
+local main = Instance.new("Frame", screen)
+main.Size = UDim2.new(0, 340, 0, 200)
+main.Position = UDim2.new(0.5, -170, 0.5, -100)
+main.BackgroundColor3 = Color3.fromRGB(18, 12, 28) -- Nền tím than đậm
+main.BackgroundTransparency = 0.05
+main.Active = true
+main.Draggable = true
+local mainCorner = Instance.new("UICorner", main)
+mainCorner.CornerRadius = UDim.new(0, 14)
+local mainStroke = Instance.new("UIStroke", main)
+mainStroke.Color = Color3.fromRGB(180, 80, 255) -- Viền tím neon
+mainStroke.Thickness = 2
+mainStroke.Transparency = 0.3
+
+-- TITLE BAR
+local titleBar = Instance.new("Frame", main)
+titleBar.Size = UDim2.new(1, 0, 0, 38)
+titleBar.BackgroundColor3 = Color3.fromRGB(120, 40, 200) -- Tím hồng
+titleBar.BackgroundTransparency = 0.2
+local titleCorner = Instance.new("UICorner", titleBar)
+titleCorner.CornerRadius = UDim.new(0, 14)
+
+local title = Instance.new("TextLabel", titleBar)
+title.Size = UDim2.new(1, 0, 1, 0)
+title.BackgroundTransparency = 1
+title.Text = "🌸 GROW A GARDEN 2 VIP"
+title.TextColor3 = Color3.fromRGB(255, 200, 255) -- Hồng phấn
+title.Font = Enum.Font.GothamBold
+title.TextSize = 16
+
+-- Nút đóng
+local closeBtn = Instance.new("TextButton", titleBar)
+closeBtn.Size = UDim2.new(0, 30, 1, 0)
+closeBtn.Position = UDim2.new(1, -30, 0, 0)
+closeBtn.BackgroundTransparency = 1
+closeBtn.Text = "✕"
+closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 16
+closeBtn.MouseButton1Click:Connect(function()
+    main.Visible = false
 end)
+
+-- Ô NHẬP KEY
+local keyInput = Instance.new("TextBox", main)
+keyInput.Size = UDim2.new(0.9, 0, 0, 42)
+keyInput.Position = UDim2.new(0.05, 0, 0.24, 0)
+keyInput.BackgroundColor3 = Color3.fromRGB(35, 25, 50) -- Tím đậm
+keyInput.BackgroundTransparency = 0.2
+keyInput.PlaceholderText = "🔑 Nhập key tại đây..."
+keyInput.PlaceholderColor3 = Color3.fromRGB(180, 150, 200)
+keyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+keyInput.Font = Enum.Font.GothamBold
+keyInput.TextSize = 14
+local keyCorner = Instance.new("UICorner", keyInput)
+keyCorner.CornerRadius = UDim.new(0, 10)
+local keyStroke = Instance.new("UIStroke", keyInput)
+keyStroke.Color = Color3.fromRGB(150, 80, 220)
+keyStroke.Thickness = 1
+
+-- GET KEY (XANH DƯƠNG NEON)
+local getBtn = Instance.new("TextButton", main)
+getBtn.Size = UDim2.new(0.43, 0, 0, 42)
+getBtn.Position = UDim2.new(0.05, 0, 0.5, 0)
+getBtn.Text = "🔗 GET KEY"
+getBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 255) -- Xanh dương neon
+getBtn.BackgroundTransparency = 0.1
+getBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+getBtn.Font = Enum.Font.GothamBold
+getBtn.TextSize = 14
+local getCorner = Instance.new("UICorner", getBtn)
+getCorner.CornerRadius = UDim.new(0, 10)
+local getStroke = Instance.new("UIStroke", getBtn)
+getStroke.Color = Color3.fromRGB(0, 200, 255)
+getStroke.Thickness = 1
+
+-- CHECK KEY (XANH LÁ NEON)
+local checkBtn = Instance.new("TextButton", main)
+checkBtn.Size = UDim2.new(0.43, 0, 0, 42)
+checkBtn.Position = UDim2.new(0.52, 0, 0.5, 0)
+checkBtn.Text = "✅ CHECK KEY"
+checkBtn.BackgroundColor3 = Color3.fromRGB(0, 220, 120) -- Xanh lá neon
+checkBtn.BackgroundTransparency = 0.1
+checkBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+checkBtn.Font = Enum.Font.GothamBold
+checkBtn.TextSize = 14
+local checkCorner = Instance.new("UICorner", checkBtn)
+checkCorner.CornerRadius = UDim.new(0, 10)
+local checkStroke = Instance.new("UIStroke", checkBtn)
+checkStroke.Color = Color3.fromRGB(0, 255, 150)
+checkStroke.Thickness = 1
+
+-- STATUS
+local status = Instance.new("TextLabel", main)
+status.Size = UDim2.new(0.9, 0, 0, 30)
+status.Position = UDim2.new(0.05, 0, 0.75, 0)
+status.BackgroundTransparency = 1
+status.Text = "🌸 Vui lòng nhập key để tiếp tục"
+status.TextColor3 = Color3.fromRGB(200, 180, 220)
+status.Font = Enum.Font.SourceSans
+status.TextSize = 13
+
+-- LOGIC
+getBtn.MouseButton1Click:Connect(function()
+    setclipboard("https://link4m.org/lpQaPhO")
+    status.Text = "📋 Đã copy link lấy key!"
+    status.TextColor3 = Color3.fromRGB(255, 255, 0)
+end)
+
+checkBtn.MouseButton1Click:Connect(function()
+    if keyInput.Text == "freekey58h" then
+        status.Text = "✅ KEY HỢP LỆ!"
+        status.TextColor3 = Color3.fromRGB(0, 255, 0)
+        main.Visible = false
+        StartMainScript()
+    else
+        status.Text = "❌ SAI KEY! Vui lòng thử lại"
+        status.TextColor3 = Color3.fromRGB(255, 50, 50)
+    end
+end)
+
+print("🌸 GROW A GARDEN 2 VIP - GET KEY MENU (BẢN ĐẸP) LOADED")
