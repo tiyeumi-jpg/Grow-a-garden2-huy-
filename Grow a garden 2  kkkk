@@ -17,9 +17,11 @@ local function StartMainScript()
     Tab:CreateSlider({Name = "Kích thước vòng AOV", Range = {50, 800}, Increment = 10, Suffix = "px", CurrentValue = 300, Callback = function(v) _G.AOVSize = v end})
 
     local FarmTab = Window:CreateTab("Script Trồng Cây 🌲", nil)
-    FarmTab:CreateButton({Name = "Chạy Script Trồng Cây", Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/main.lua"))()
-        Rayfield:Notify({Title = "Thông báo", Content = "Đã kích hoạt script trồng cây!", Duration = 3})
+    FarmTab:CreateButton({Name = "Chạy Script Trồng Cây (vipbro)", Callback = function()
+        _G.AutoTranslate = false
+        _G.SaveConfig = true
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()
+        Rayfield:Notify({Title = "Thông báo", Content = "Đã kích hoạt script VIPBRO!", Duration = 3})
     end})
 
     -- Nút NET
@@ -74,21 +76,21 @@ screen.ResetOnSpawn = false
 local main = Instance.new("Frame", screen)
 main.Size = UDim2.new(0, 340, 0, 200)
 main.Position = UDim2.new(0.5, -170, 0.5, -100)
-main.BackgroundColor3 = Color3.fromRGB(18, 12, 28) -- Nền tím than đậm
+main.BackgroundColor3 = Color3.fromRGB(18, 12, 28)
 main.BackgroundTransparency = 0.05
 main.Active = true
 main.Draggable = true
 local mainCorner = Instance.new("UICorner", main)
 mainCorner.CornerRadius = UDim.new(0, 14)
 local mainStroke = Instance.new("UIStroke", main)
-mainStroke.Color = Color3.fromRGB(180, 80, 255) -- Viền tím neon
+mainStroke.Color = Color3.fromRGB(180, 80, 255)
 mainStroke.Thickness = 2
 mainStroke.Transparency = 0.3
 
 -- TITLE BAR
 local titleBar = Instance.new("Frame", main)
 titleBar.Size = UDim2.new(1, 0, 0, 38)
-titleBar.BackgroundColor3 = Color3.fromRGB(120, 40, 200) -- Tím hồng
+titleBar.BackgroundColor3 = Color3.fromRGB(120, 40, 200)
 titleBar.BackgroundTransparency = 0.2
 local titleCorner = Instance.new("UICorner", titleBar)
 titleCorner.CornerRadius = UDim.new(0, 14)
@@ -97,11 +99,10 @@ local title = Instance.new("TextLabel", titleBar)
 title.Size = UDim2.new(1, 0, 1, 0)
 title.BackgroundTransparency = 1
 title.Text = "🌸 GROW A GARDEN 2 VIP"
-title.TextColor3 = Color3.fromRGB(255, 200, 255) -- Hồng phấn
+title.TextColor3 = Color3.fromRGB(255, 200, 255)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 16
 
--- Nút đóng
 local closeBtn = Instance.new("TextButton", titleBar)
 closeBtn.Size = UDim2.new(0, 30, 1, 0)
 closeBtn.Position = UDim2.new(1, -30, 0, 0)
@@ -114,11 +115,10 @@ closeBtn.MouseButton1Click:Connect(function()
     main.Visible = false
 end)
 
--- Ô NHẬP KEY
 local keyInput = Instance.new("TextBox", main)
 keyInput.Size = UDim2.new(0.9, 0, 0, 42)
 keyInput.Position = UDim2.new(0.05, 0, 0.24, 0)
-keyInput.BackgroundColor3 = Color3.fromRGB(35, 25, 50) -- Tím đậm
+keyInput.BackgroundColor3 = Color3.fromRGB(35, 25, 50)
 keyInput.BackgroundTransparency = 0.2
 keyInput.PlaceholderText = "🔑 Nhập key tại đây..."
 keyInput.PlaceholderColor3 = Color3.fromRGB(180, 150, 200)
@@ -131,12 +131,11 @@ local keyStroke = Instance.new("UIStroke", keyInput)
 keyStroke.Color = Color3.fromRGB(150, 80, 220)
 keyStroke.Thickness = 1
 
--- GET KEY (XANH DƯƠNG NEON)
 local getBtn = Instance.new("TextButton", main)
 getBtn.Size = UDim2.new(0.43, 0, 0, 42)
 getBtn.Position = UDim2.new(0.05, 0, 0.5, 0)
 getBtn.Text = "🔗 GET KEY"
-getBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 255) -- Xanh dương neon
+getBtn.BackgroundColor3 = Color3.fromRGB(0, 180, 255)
 getBtn.BackgroundTransparency = 0.1
 getBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 getBtn.Font = Enum.Font.GothamBold
@@ -147,12 +146,11 @@ local getStroke = Instance.new("UIStroke", getBtn)
 getStroke.Color = Color3.fromRGB(0, 200, 255)
 getStroke.Thickness = 1
 
--- CHECK KEY (XANH LÁ NEON)
 local checkBtn = Instance.new("TextButton", main)
 checkBtn.Size = UDim2.new(0.43, 0, 0, 42)
 checkBtn.Position = UDim2.new(0.52, 0, 0.5, 0)
 checkBtn.Text = "✅ CHECK KEY"
-checkBtn.BackgroundColor3 = Color3.fromRGB(0, 220, 120) -- Xanh lá neon
+checkBtn.BackgroundColor3 = Color3.fromRGB(0, 220, 120)
 checkBtn.BackgroundTransparency = 0.1
 checkBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 checkBtn.Font = Enum.Font.GothamBold
@@ -163,7 +161,6 @@ local checkStroke = Instance.new("UIStroke", checkBtn)
 checkStroke.Color = Color3.fromRGB(0, 255, 150)
 checkStroke.Thickness = 1
 
--- STATUS
 local status = Instance.new("TextLabel", main)
 status.Size = UDim2.new(0.9, 0, 0, 30)
 status.Position = UDim2.new(0.05, 0, 0.75, 0)
@@ -173,7 +170,6 @@ status.TextColor3 = Color3.fromRGB(200, 180, 220)
 status.Font = Enum.Font.SourceSans
 status.TextSize = 13
 
--- LOGIC
 getBtn.MouseButton1Click:Connect(function()
     setclipboard("https://link4m.org/lpQaPhO")
     status.Text = "📋 Đã copy link lấy key!"
