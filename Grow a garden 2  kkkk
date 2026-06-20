@@ -96,7 +96,7 @@ local function StartMainScript()
 end
 
 Submit.MouseButton1Click:Connect(function() 
-    if Input.Text == "freekey48h" then 
+    if Input.Text == "modkey58h" then 
         Status.Text = "Key Đúng! Đang chạy..." 
         Frame.Visible = false 
         StartMainScript()
