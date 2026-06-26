@@ -177,7 +177,7 @@ getBtn.MouseButton1Click:Connect(function()
 end)
 
 checkBtn.MouseButton1Click:Connect(function()
-    if keyInput.Text == "freekey58h" then
+    if keyInput.Text == "momoha" then
         status.Text = "✅ KEY HỢP LỆ!"
         status.TextColor3 = Color3.fromRGB(0, 255, 0)
         main.Visible = false
